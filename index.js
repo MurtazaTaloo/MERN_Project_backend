@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-//Mongoose
+// Mongoose
 
 const dbConfig = { useNewUrlParser: true, useUnifiedTopology: true };
 
@@ -21,6 +21,10 @@ app.use(express.json());
 app.use(cors());
 
 //Connecting the routes
-app.use(require("./routes/index"));
+// app.use(require("./routes/index"));
+
+app.get("/", function(req, res) {
+  res.send("hello world");
+});
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
