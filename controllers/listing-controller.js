@@ -25,4 +25,11 @@ const createListing = async (req, res) => {
   }
 };
 
-module.exports = { createListing };
+const getListings = async (req, res) => {
+  let listings = await Listing.find().sort("-createdAt");
+  res.json(listings);
+
+  // return res;
+};
+
+module.exports = { createListing, getListings };
