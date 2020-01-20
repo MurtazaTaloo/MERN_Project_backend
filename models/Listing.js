@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const lisingSchema = new Schema(
+const listingSchema = new Schema(
   {
     title: String,
     image: String,
@@ -16,6 +16,6 @@ const lisingSchema = new Schema(
   }
 );
 
-const Cafe = mongoose.model("Listing", listingSchema);
+const Listing = mongoose.model("Listing", listingSchema);
 
 module.exports = Listing;
