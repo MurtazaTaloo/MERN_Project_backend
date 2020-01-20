@@ -1,6 +1,30 @@
 const Listing = require("../models/Listing");
 const mongoose = require("mongoose");
 
+// this method gets all the availabe listings.
+const getListings = async (req, res) => {
+  try {
+    let listings = await Listing.find().sort("-createdAt");
+    res.json(listings);
+  } catch (err) {
+    res.status(400).send("Error:" + err);
+  }
+};
+
+// this method will fetch one listing from the database as per the id
+const getOneListing = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    let listing = await Listing.findById(id);
+
+    res.json(listing);
+  } catch (err) {
+    res.status(400).send("Error: " + err);
+  }
+};
+
+// this method will create a new listing and save it in the database. Only admin can access the route and it needs admin auth
 const createListing = async (req, res) => {
   const { title, image, description, price, orders, available } = req.body;
 
@@ -21,13 +45,7 @@ const createListing = async (req, res) => {
   }
 };
 
-const getListings = async (req, res) => {
-  let listings = await Listing.find().sort("-createdAt");
-  res.json(listings);
-
-  // return res;
-};
-
+// this method will let you edit a listing by a given id. Only admin can access this route
 const editListing = async (req, res) => {
   const { id } = req.params;
   const { title, image, description, price, orders, available } = req.body;
@@ -48,25 +66,28 @@ const editListing = async (req, res) => {
 
     res.json(listing);
   } catch (err) {
-    console.log(err);
-
     res.json(err);
   }
 };
 
+// this deletes the listing by id. Only admin can access this route
 const deleteListing = async (req, res) => {
   const { id } = req.params;
 
   try {
     const listing = await Listing.findById(id);
-    // const index = cafe.reviews.indexOf(id);
-    // cafe.reviews.splice(index, 1);
-    // cafe.save();
+
     listing.remove();
-    res.send("Review deleted.");
+    res.send("listing deleted.");
   } catch (err) {
     res.status(400).send("Error: " + err);
   }
 };
 
-module.exports = { createListing, getListings, editListing, deleteListing };
+module.exports = {
+  createListing,
+  getListings,
+  editListing,
+  deleteListing,
+  getOneListing
+};
