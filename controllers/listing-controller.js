@@ -54,20 +54,19 @@ const editListing = async (req, res) => {
   }
 };
 
-// const deleteReview = async (req, res) => {
-//   const { id } = req.params;
+const deleteListing = async (req, res) => {
+  const { id } = req.params;
 
-//   try {
-//     const review = await Review.findById(id);
-//     const cafe = await Cafe.findById(review.cafe);
-//     const index = cafe.reviews.indexOf(id);
-//     cafe.reviews.splice(index, 1);
-//     cafe.save();
-//     review.remove();
-//     res.send("Review deleted.");
-//   } catch (err) {
-//     res.status(400).send("Error: " + err);
-//   }
-// };
+  try {
+    const listing = await Listing.findById(id);
+    // const index = cafe.reviews.indexOf(id);
+    // cafe.reviews.splice(index, 1);
+    // cafe.save();
+    listing.remove();
+    res.send("Review deleted.");
+  } catch (err) {
+    res.status(400).send("Error: " + err);
+  }
+};
 
-module.exports = { createListing, getListings, editListing };
+module.exports = { createListing, getListings, editListing, deleteListing };
