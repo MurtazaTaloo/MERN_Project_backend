@@ -11,6 +11,8 @@ const listingSchema = new Schema(
     orders: Number,
     available: Boolean
   },
+  { timestamps: true },
+
   {
     collection: "listings"
   }
