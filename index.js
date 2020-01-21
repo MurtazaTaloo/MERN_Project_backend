@@ -9,7 +9,48 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.post('/api/form',(req, res) => {
+<<<<<<< Updated upstream
   console.log(req.body)
+=======
+  console.log(req.body.name)
+  nodemailer.createTestAccount((err, account) => {
+    const htmlEmail = `
+      <h3>Contact Details</h3>
+      <ul>
+        <li> Name: ${req.body.name}</li>
+        <li> Email: ${req.body.email}</li>
+      </ul>
+      <h3>Message</h3>
+      <p>${req.body.message}</p>
+    `
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+        user: 'kale.boyer51@ethereal.email',
+        pass: 'wfcKKB7hXUUygFjnbT',
+      }
+    })
+    let mailOptions = {
+      from: 'xmedicinepower@gmail.com',
+      to: 'marco1993@live.com',
+      replyTo: 'test@testaccount.com',
+      subject: 'New Message',
+      text: req.body.message,
+      html: htmlEmail
+    }
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log('Error', err );
+      } else {
+        console.log('Email En route!');
+      }
+
+    // console.log("Message sent: %s", info.messageId);
+    // console.log('Message URL: %s', nodemailer.getTestMessageUrl(info))
+    })
+  })
+>>>>>>> Stashed changes
 })
 
 const PORT = process.env.PORT || 3001
