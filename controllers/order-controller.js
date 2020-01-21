@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 const createOrder = async (req, res) => {
   // assuming that the post request from the front-end after a success page from stripe will send another post request to create a new order in the database. We require an array of product objects to retrieve the id's from it.
   // let { listings } = req.body; // listings should be an array of all the listings.
-  // // find out the data I will receive from the stripe after the payment is successfull
   listings = await Listing.find(); // this is an asyn function
   // try {
   //   listings = listings.map(async listing => {
