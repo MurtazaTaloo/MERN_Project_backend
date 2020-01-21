@@ -6,7 +6,8 @@ const orderSchema = new Schema(
   {
     Items: Array, // this will contain one or more listing objects
     totalValue: Number,
-    NumberOfItems: Number
+    NumberOfItems: Number,
+    customer: Object // array of objects or just object
   },
   { timestamps: true },
 
