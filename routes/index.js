@@ -4,7 +4,10 @@ const sendMail = require("../controllers/nodeMailer")
 
 
 router.use("/listings", require("./listing-routes"));
-router.post("/api/form", sendMail);
+
+
+
+router.use("/orders", require("./order-routes"));
 
 
 module.exports = router;
