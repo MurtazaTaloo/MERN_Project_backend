@@ -1,68 +1,11 @@
-require("dotenv").config();
 const express = require("express");
-const bodyParser = require('body-parser');
-const nodemailer = require("nodemailer");
 const app = express()
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
-
-app.post('/api/form',(req, res) => {
-
-  console.log(req.body)
-  console.log(req.body.name)
-  nodemailer.createTestAccount((err, account) => {
-    const htmlEmail = `
-      <h3>Contact Details</h3>
-      <ul>
-        <li> Name: ${req.body.name}</li>
-        <li> Email: ${req.body.email}</li>
-      </ul>
-      <h3>Message</h3>
-      <p>${req.body.message}</p>
-    `
-    let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      requireTLS: true,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-      }
-    })
-    let mailOptions = {
-      from: 'xmedicinepower@gmail.com',
-      to: 'xmedicinepower@gmail.com',
-      subject: 'New Message',
-      text: req.body.message,
-      html: htmlEmail
-    }
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.log('Error', err );
-      } else {
-        console.log('Email En route!');
-      }
-
-    // console.log("Message sent: %s", info.messageId);
-    // console.log('Message URL: %s', nodemailer.getTestMessageUrl(info))
-    })
-  })
-})
-
-
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`)
-// });
-
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
-
-
 
 // Mongoose
 
