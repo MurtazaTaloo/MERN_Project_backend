@@ -1,5 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE);
 
+const { createOrder } = require("../controllers/order-controller");
+
 const processPayment = async (req, res) => {
   const tokenId = req.body.tokenId;
   // console.log(req);
@@ -13,6 +15,9 @@ const processPayment = async (req, res) => {
       source: tokenId
     });
 
+    // console.log(req.body.orderData);
+
+    newOrder = createOrder(req.body.orderData);
     res.json({ status });
   } catch (err) {
     // console.log(err);
