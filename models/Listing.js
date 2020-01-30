@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const listingSchema = new Schema(
   {
     title: String,
-    image: String,
+    image: Array,
     description: String,
     price: String,
     orders: Number,
