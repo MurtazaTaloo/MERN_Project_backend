@@ -2,11 +2,12 @@ const stripe = require("stripe")(process.env.STRIPE);
 
 const processPayment = async (req, res) => {
   const tokenId = req.body.tokenId;
-  // console.log(body);
-
+  // console.log(req);
+  const amount = req.body.orderData.cartTotal * 100;
+  // console.log(amount);
   try {
     let { status } = await stripe.charges.create({
-      amount: 20000,
+      amount: amount,
       currency: "usd",
       description: "An example charge",
       source: tokenId
