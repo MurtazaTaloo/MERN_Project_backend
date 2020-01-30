@@ -1,4 +1,4 @@
-const stripe = require("stripe")("sk_test_p1910isHbzlwV1z2skaM50k600GvB2v0rk");
+const stripe = require("stripe")(process.env.STRIPE);
 
 const processPayment = async (req, res) => {
   const tokenId = req.body.tokenId;
