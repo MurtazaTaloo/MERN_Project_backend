@@ -15,8 +15,7 @@ const processPayment = async (req, res) => {
       source: tokenId
     });
 
-    // console.log(req.body.orderData);
-
+    // creates an order once the payment has gone through
     newOrder = createOrder(req.body.orderData);
     res.json({ status });
   } catch (err) {
