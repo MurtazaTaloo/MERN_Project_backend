@@ -34,6 +34,7 @@ const createOrder = async orderDetails => {
     items: itemsInCart,
     totalValue: cartTotal,
     numberOfItems,
+    fulfilled: false,
     customer: customerInfo
   });
 
@@ -47,8 +48,27 @@ const createOrder = async orderDetails => {
   return newOrder;
 };
 
+const fulfilOrder = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    let order = await Order.findById(id);
+    order.fulfilled = true;
+    await order.save();
+
+    // or this
+    // await Listing.updateOne({ id: id }, { title: title });
+    console.log(order);
+
+    res.json(order);
+  } catch (err) {
+    res.json(err);
+  }
+};
+
 module.exports = {
   createOrder,
   getOrders,
-  getOneOrder
+  getOneOrder,
+  fulfilOrder
 };
