@@ -87,11 +87,14 @@ const deleteListing = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  let { username, password } = req.body;
-  console.log("username and password = ", username, password);
-  console.log(req.body);
+  // console.log("inside login route");
+  // console.log(req.headers);
 
-  let mockedUsername = "admin";
+  let { username, password } = req.body;
+  // console.log("username and password = ", username, password);
+  // console.log(req.body);
+
+  let mockedUsername = "admin@gmail.com";
   let mockedPassword = "password";
 
   if (username && password) {

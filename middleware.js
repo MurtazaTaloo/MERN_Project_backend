@@ -3,6 +3,9 @@ require("dotenv").config();
 
 // this intercepts the requests and call next when condition is met
 let checkToken = (req, res, next) => {
+  console.log("req headers ", req.headers);
+  console.log("inside the middleware");
+
   let token =
     // checking the header of request to find token and pass just an empty string if not found
     req.headers["x-access-token"] || req.headers["authorization"] || "";
@@ -19,7 +22,7 @@ let checkToken = (req, res, next) => {
           message: "token is not valid"
         });
       } else {
-        console.log(decoded);
+        // console.log(decoded);
         req.decoded = decoded;
         next();
       }
