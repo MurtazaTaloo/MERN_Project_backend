@@ -1,5 +1,7 @@
 const Listing = require("../models/Listing");
 const mongoose = require("mongoose");
+let jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 // this method gets all the availabe listings.
 const getListings = async (req, res) => {
@@ -84,10 +86,50 @@ const deleteListing = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  let { username, password } = req.body;
+  console.log("username and password = ", username, password);
+  console.log(req.body);
+
+  let mockedUsername = "admin";
+  let mockedPassword = "password";
+
+  if (username && password) {
+    if (username === mockedUsername && password === mockedPassword) {
+      // with jwt.sign u could send extre details like we did with username down below
+      // decoded.username will give you access to the username provided in the first login
+      let token = jwt.sign(
+        { username: username, oneMore: "yes" },
+        process.env.SECRET,
+        {
+          expiresIn: "1h"
+        }
+      );
+      res.json({
+        success: true,
+        message: "Authentication successfull",
+        token: token
+        // this token is then saved in the browser
+      });
+    } else {
+      res.status(403).json({
+        success: false,
+        message: "Incorrect username or password"
+      });
+    }
+  } else {
+    res.status(400).json({
+      success: false,
+      message: "Auth failed, please check the request"
+    });
+  }
+};
+
 module.exports = {
   createListing,
   getListings,
   editListing,
   deleteListing,
-  getOneListing
+  getOneListing,
+  login
 };
