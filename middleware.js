@@ -1,14 +1,15 @@
 let jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// this intercepts the requests and call next when condition is met
+// this middleware intercepts the requests and call next() function when condition is met
 let checkToken = (req, res, next) => {
-  console.log("req headers ", req.headers);
   console.log("inside the middleware");
 
   let token =
     // checking the header of request to find token and pass just an empty string if not found
     req.headers["x-access-token"] || req.headers["authorization"] || "";
+
+  console.log("token ", token);
 
   if (token.startsWith("Bearer ")) {
     // removing Bearer from the token
@@ -28,7 +29,6 @@ let checkToken = (req, res, next) => {
       }
     });
   } else {
-    // status codes are a good practise to send with the request if its been refused
     return res.status(403).json({
       success: false,
       message: "Auth token has not been supplied"
