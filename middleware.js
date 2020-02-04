@@ -15,9 +15,15 @@ let checkToken = (req, res, next) => {
     // removing Bearer from the token
     token = token.slice(7, token.length);
   }
+
+  console.log("after berer romving");
+
   if (token) {
+    console.log("token  process.env.SECRET ", token, process.env.SECRET);
+
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
+        console.log("in error");
         return res.json({
           success: false,
           message: "token is not valid"
@@ -25,6 +31,7 @@ let checkToken = (req, res, next) => {
       } else {
         // console.log(decoded);
         req.decoded = decoded;
+
         next();
       }
     });

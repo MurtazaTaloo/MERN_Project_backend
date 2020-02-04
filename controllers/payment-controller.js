@@ -4,7 +4,7 @@ const { createOrder } = require("../controllers/order-controller");
 
 const processPayment = async (req, res) => {
   const tokenId = req.body.tokenId;
-  // console.log(req);
+  console.log("token Id = ", tokenId);
   const amount = req.body.orderData.cartTotal * 100;
   // console.log(amount);
   try {

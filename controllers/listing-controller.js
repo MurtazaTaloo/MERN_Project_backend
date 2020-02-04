@@ -30,6 +30,8 @@ const getOneListing = async (req, res) => {
 const createListing = async (req, res) => {
   const { title, image, description, price, orders, available } = req.body;
 
+  console.log(("inside create listing = ", req.body));
+
   const newListing = new Listing({
     title,
     image,
