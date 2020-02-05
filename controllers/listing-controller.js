@@ -105,10 +105,11 @@ const login = async (req, res) => {
       // decoded.username will give you access to the username provided in the first login
       let token = jwt.sign(
         { username: username, oneMore: "yes" },
-        process.env.SECRET,
-        {
-          expiresIn: "1h"
-        }
+        process.env.SECRET
+        // enable the object below to put a time limit on the token. right now the token will only clear if admins logs out
+        // {
+        //   expiresIn: "1h"
+        // }
       );
       res.json({
         success: true,
